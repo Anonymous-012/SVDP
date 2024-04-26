@@ -30,7 +30,16 @@ IMG_MEAN = np.array((104.00698793, 116.66876762, 122.67891434), dtype=np.float32
 
 
 
+def update_ema_variables_cotta(ema_model, model, alpha_teacher, iteration=None):
+    # Use the "true" average until the exponential average is more correct
+    if iteration:
+        alpha_teacher = min(1 - 1 / (iteration + 1), alpha_teacher)
 
+    if True:
+        for ema_param, param in zip(ema_model.parameters(), model.parameters()):
+            #ema_param.data.mul_(alpha).add_(1 - alpha, param.data)
+            ema_param.data[:] = alpha_teacher * ema_param[:].data[:] + (1 - alpha_teacher) * param[:].data[:]
+    return ema_model
 
 def update_ema_variables(ema_model, model, alpha_model, alpha_prompt, iteration=None):
     # Use the "true" average until the exponential average is more correct
@@ -272,7 +281,7 @@ def single_gpu_cotta(model,
         torch.mean(weight*loss["decode.loss_seg"]).backward()
         optimizer.step()
         optimizer.zero_grad()
-        ema_model = update_ema_variables(ema_model = ema_model, model = model, alpha_teacher=0.999)
+        ema_model = update_ema_variables_cotta(ema_model = ema_model, model = model, alpha_teacher=args.ema_rate)
         for nm, m  in model.named_modules():
             for npp, p in m.named_parameters():
                 if npp in ['weight', 'bias'] and p.requires_grad:

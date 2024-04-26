@@ -1,1 +1,3 @@
 __pycache__
+wandb/
+segformer.b5.1024x1024.city.160k.pth

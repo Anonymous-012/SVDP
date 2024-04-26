@@ -76,7 +76,10 @@ class EncoderDecoder(BaseSegmentor):
 
     def extract_feat(self, img, img_metas, position=None):
         """Extract features from images."""
-        x = self.backbone(img, img_metas, position)
+        if position:
+            x = self.backbone(img, img_metas, position)
+        else:
+            x = self.backbone(img, img_metas)
         if self.with_neck:
             x = self.neck(x)
         return x

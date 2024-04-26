@@ -1,4 +1,4 @@
-# Exploring Sparse Visual Prompt for Cross-domain Semantic Segmentation (AAAI 2024)
+# Exploring Sparse Visual Prompt for Domain Adaptive Dense Prediction (AAAI 2024)
 Senqiao Yang, Jiarui Wu, Jiaming Liu, Xiaoqi Li, Qizhe Zhang, Mingjie Pan, Yulu Gan, Zehui Chen, Shanghang Zhang
 
 [[`arXiv`](https://arxiv.org/pdf/2303.09792)] [[`Page`](https://senqiaoyang.com/project/svdp)] [[`BibTeX`](#cite)]
